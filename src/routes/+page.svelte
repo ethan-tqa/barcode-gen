@@ -30,16 +30,22 @@
 
 	function download() {
 		canvas.toBlob(function (blob) {
-			fileSaver.saveAs(blob, 'image.png');
+			const name = `image-${code}.png`;
+			console.log('downloading', name);
+			fileSaver.saveAs(blob, name);
 		});
 	}
 
-	function generate() {
+	async function generate() {
 		let codeArr = codes.split('\n');
 		for (const c of codeArr) {
 			code = c;
 			genCode();
 			download();
+
+			// NOTE: Required to make sure the browser does not mess up the file names
+			// Ref: https://stackoverflow.com/a/39914235
+			await new Promise(r => setTimeout(r, 500));
 		}
 	}
 
@@ -93,7 +99,7 @@
 <div class="mb-2">
 	<p>Paste codes here for bulk generation, one code per line</p>
 	<div class="border px-1 mb-2 bg-gray-300">
-		<button on:click={() => generate()}>Generate</button>
+		<button class="w-full" on:click={() => generate()}>Generate</button>
 	</div>
 	<textarea class="border px-1 w-full" bind:value={codes} rows={10} />
 </div>
