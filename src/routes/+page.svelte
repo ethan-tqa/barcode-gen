@@ -50,58 +50,53 @@
 
 <canvas bind:this={canvas} alt="" id="barcode" />
 
-<div class="row">
-	<input type="text" bind:value={code} autofocus />
-	<button on:click={() => download()}>Save</button>
+<div class="mb-2">
+	<input class="border px-1" type="text" bind:value={code} autofocus />
+	<button class="border px-1 bg-gray-300" on:click={() => download()}>Save</button>
 </div>
 
-<div class="row">
+<div class="mb-2 grid grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-2">
 	<!-- Bar width -->
-	<div class="col">
+	<div>
 		<p>Bar Width: {barWidth}</p>
 		<input id="bar-width" type="range" min="1" max="4" step="1" bind:value={barWidth} on:change={() => genCode()} />
 	</div>
 	<!-- Height -->
-	<div class="col">
+	<div>
 		<p>Bar Height: {barHeight}</p>
 		<input id="bar-height" type="range" min="10" max="150" step="5" bind:value={barHeight} on:change={() => genCode()} />
 	</div>
 
 	<!-- Margin -->
-	<div class="col">
+	<div>
 		<p>Bar Margin: {barMargin}</p>
 		<input id="bar-margin" type="range" min="0" max="25" step="1" bind:value={barMargin} on:change={() => genCode()} />
 	</div>
-</div>
 
-<div class="row">
 	<!-- Show text -->
-	<div class="col">
+	<div>
 		<p>Show text: {showText}</p>
 		<input type="checkbox" name="" id="" bind:checked={showText} on:change={() => genCode()} />
 	</div>
 	<!-- Font size -->
-	<div class="col">
+	<div>
 		<p>Font Size: {textSize}</p>
 		<div class="col-md-7 col-xs-11 slider-container"><input id="bar-fontSize" type="range" min="8" max="36" step="1" bind:value={textSize} on:change={() => genCode()} /></div>
 	</div>
 	<!-- Text margin -->
-	<div class="col">
+	<div>
 		<p>Text Margin: {textMargin}</p>
 		<div class="col-md-7 col-xs-11 slider-container"><input id="bar-text-margin" type="range" min="-15" max="40" step="1" bind:value={textMargin} on:change={() => genCode()} /></div>
 	</div>
 </div>
 
-<div>
+<div class="mb-2">
 	<p>Paste codes here for bulk generation, one code per line</p>
-	<div>
+	<div class="border px-1 mb-2 bg-gray-300">
 		<button on:click={() => generate()}>Generate</button>
 	</div>
-	<textarea bind:value={codes} rows={10} />
+	<textarea class="border px-1 w-full" bind:value={codes} rows={10} />
 </div>
 
 <style>
-	.row {
-		column-count: 3;
-	}
 </style>
