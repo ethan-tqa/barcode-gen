@@ -10,6 +10,7 @@
 	let textSize = 24,
 		textMargin = 0;
 	let showText = true;
+	let codeType = 'CODE39';
 	let code = '0015010005675420010135433033';
 	let codes = '';
 	let canvas = null;
@@ -17,7 +18,7 @@
 	function genCode() {
 		if (browser) {
 			jsBarcode('#barcode', code, {
-				format: 'CODE39',
+				format: codeType,
 				width: barWidth,
 				height: barHeight,
 				margin: barMargin,
@@ -45,7 +46,7 @@
 
 			// NOTE: Required to make sure the browser does not mess up the file names
 			// Ref: https://stackoverflow.com/a/39914235
-			await new Promise(r => setTimeout(r, 500));
+			await new Promise((r) => setTimeout(r, 500));
 		}
 	}
 
@@ -54,10 +55,33 @@
 	});
 </script>
 
-<canvas bind:this={canvas} alt="" id="barcode" />
+<canvas bind:this={canvas} alt="" id="barcode" class="mb-2" />
 
-<div class="mb-2">
-	<input class="border px-1" type="text" bind:value={code} autofocus />
+<div class="flex flex-row gap-2 mb-2">
+	<div>Barcode type</div>
+	<select class="border border-1" bind:value={codeType} on:change={() => genCode()}>
+		<option value="CODE128">CODE128 auto</option>
+		<option value="CODE128A">CODE128 A</option>
+		<option value="CODE128B">CODE128 B</option>
+		<option value="CODE128C">CODE128 C</option>
+		<option value="EAN13">EAN13</option>
+		<option value="EAN8">EAN8</option>
+		<option value="UPC">UPC</option>
+		<option value="CODE39">CODE39</option>
+		<option value="ITF14">ITF14</option>
+		<option value="ITF">ITF</option>
+		<option value="MSI">MSI</option>
+		<option value="MSI10">MSI10</option>
+		<option value="MSI11">MSI11</option>
+		<option value="MSI1010">MSI1010</option>
+		<option value="MSI1110">MSI1110</option>
+		<option value="pharmacode">Pharmacode</option>
+	</select>
+</div>
+
+<div class="flex flex-row gap-2 mb-2">
+	<div>Use this input for single code</div>
+	<input class="border px-1" type="text" bind:value={code} on:change={() => genCode()} autofocus />
 	<button class="border px-1 bg-gray-300" on:click={() => download()}>Save</button>
 </div>
 
