@@ -1,5 +1,5 @@
 <script>
-	import { browser } from '$app/env';
+	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 	import jsBarcode from 'jsbarcode';
 	import fileSaver from 'file-saver';
@@ -81,7 +81,7 @@
 
 <div class="flex flex-row gap-2 mb-2">
 	<div>Use this input for single code</div>
-	<input class="border px-1" type="text" bind:value={code} on:change={() => genCode()} autofocus />
+	<input class="border px-1" type="text" bind:value={code} on:change={() => genCode()} />
 	<button class="border px-1 bg-gray-300" on:click={() => download()}>Save</button>
 </div>
 
